@@ -121,6 +121,21 @@ p {
   font-size: 25px;
 }
 
+.card small {
+  display: block;
+  margin-top: 6px;
+  color: #8a93a1;
+  font-size: 12px;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 18px 20px;
+  border: 1px solid #e7eaf1;
+  border-radius: 14px;
+  background: white;
+}
+
 .source {
   margin-bottom: 18px;
   overflow: hidden;

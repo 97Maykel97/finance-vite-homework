@@ -1,4 +1,4 @@
-const API_KEY = 'prodcpakey333'
+const API_KEY = import.meta.env.VITE_FINANCE_API_KEY
 
 const URLS = {
   finance1: 'https://cpa-server-vtel.onrender.com/api/finance1',
@@ -6,12 +6,7 @@ const URLS = {
 }
 
 async function request(name, url) {
-  const response = await fetch(url, {
-    headers: {
-      'x-api-key': API_KEY,
-    },
-  })
-
+  const response = await fetch(url, { headers: { 'x-api-key': API_KEY } })
   if (!response.ok) {
     throw new Error(`${name}: сервер вернул статус ${response.status}`)
   }
@@ -24,10 +19,15 @@ async function request(name, url) {
 }
 
 export async function loadFinanceData() {
+  if (!API_KEY) {
+    throw new Error(
+      'Не задан ключ API. Добавьте VITE_FINANCE_API_KEY в локальный файл .env.local',
+    )
+  }
+
   const [finance1, finance2] = await Promise.all([
     request('Источник 1', URLS.finance1),
     request('Источник 2', URLS.finance2),
   ])
-
   return { finance1, finance2 }
 }

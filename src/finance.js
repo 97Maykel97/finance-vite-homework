@@ -1,4 +1,6 @@
 const CURRENCY_PATTERN = /^[A-Z]{3}$/
+const FIRST_SOURCE = 'Источник 1'
+const SECOND_SOURCE = 'Источник 2'
 
 function normalizeCurrency(value, sourceName) {
   if (typeof value !== 'string') {
@@ -6,75 +8,62 @@ function normalizeCurrency(value, sourceName) {
   }
 
   const currency = value.trim().toUpperCase()
-
   if (!CURRENCY_PATTERN.test(currency)) {
     throw new Error(`${sourceName}: некорректная валюта "${value}"`)
   }
-
   return currency
 }
 
 function parseTextTransaction(value) {
   if (typeof value !== 'string') {
-    throw new Error('Источник 2 содержит запись неверного формата')
+    throw new Error(`${SECOND_SOURCE}: операция должна быть строкой`)
   }
 
   const match = value.trim().match(/^([+-]?\d+(?:[.,]\d+)?)\s+([a-z]{3})$/i)
-
   if (!match) {
     throw new Error(`Не удалось обработать запись: "${value}"`)
   }
 
   const [, amount, currency] = match
-
   return {
     amount: Number(amount.replace(',', '.')),
-    currency: normalizeCurrency(currency, 'Источник 2'),
+    currency: normalizeCurrency(currency, SECOND_SOURCE),
     status: 'paid',
-    source: 'Источник 2',
+    source: SECOND_SOURCE,
   }
 }
 
 function parseObjectTransaction(transaction) {
   if (!transaction || typeof transaction !== 'object') {
-    throw new Error('Источник 1 содержит некорректную операцию')
+    throw new Error(`${FIRST_SOURCE}: некорректная операция`)
   }
-
-  const amountIsInvalid =
-    typeof transaction.amount !== 'number' ||
-    !Number.isFinite(transaction.amount)
-
-  if (amountIsInvalid) {
-    throw new Error('Источник 1: amount должен быть числом')
+  if (typeof transaction.amount !== 'number' || !Number.isFinite(transaction.amount)) {
+    throw new Error(`${FIRST_SOURCE}: amount должен быть числом`)
   }
-
   if (typeof transaction.type !== 'string' || !transaction.type.trim()) {
-    throw new Error('Источник 1: type не указан')
+    throw new Error(`${FIRST_SOURCE}: type не указан`)
   }
 
   return {
     amount: transaction.amount,
     status: transaction.type,
-    currency: normalizeCurrency(transaction.currency, 'Источник 1'),
-    source: 'Источник 1',
+    currency: normalizeCurrency(transaction.currency, FIRST_SOURCE),
+    source: FIRST_SOURCE,
   }
 }
 
 export function normalizeTransactions(finance1, finance2) {
-  const firstTransactions = finance1?.transactions
-
-  if (!Array.isArray(firstTransactions)) {
-    throw new Error('Источник 1 вернул данные неверного формата')
+  if (!Array.isArray(finance1?.transactions)) {
+    throw new Error(`${FIRST_SOURCE}: неверный формат данных`)
   }
-
   if (!Array.isArray(finance2)) {
-    throw new Error('Источник 2 вернул данные неверного формата')
+    throw new Error(`${SECOND_SOURCE}: неверный формат данных`)
   }
 
-  const firstSource = firstTransactions.map(parseObjectTransaction)
-  const secondSource = finance2.map(parseTextTransaction)
-
-  return [...firstSource, ...secondSource]
+  return [
+    ...finance1.transactions.map(parseObjectTransaction),
+    ...finance2.map(parseTextTransaction),
+  ]
 }
 
 export function calculateTotals(transactions) {
@@ -86,20 +75,13 @@ export function calculateTotals(transactions) {
     if (!transaction || typeof transaction !== 'object') {
       throw new Error('Обнаружена некорректная операция')
     }
+    if (transaction.status !== 'paid') return totals
 
-    if (transaction.status !== 'paid') {
-      return totals
-    }
-
-    const { amount } = transaction
     const currency = normalizeCurrency(transaction.currency, 'Операция')
-
-    if (typeof amount !== 'number' || !Number.isFinite(amount)) {
+    if (typeof transaction.amount !== 'number' || !Number.isFinite(transaction.amount)) {
       throw new Error('Операция: amount должен быть числом')
     }
-
-    totals[currency] = (totals[currency] ?? 0) + amount
-
+    totals[currency] = (totals[currency] ?? 0) + transaction.amount
     return totals
   }, {})
 }
