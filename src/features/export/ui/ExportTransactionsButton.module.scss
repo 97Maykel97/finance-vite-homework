@@ -1,0 +1,11 @@
+.button {
+  padding: 10px 14px;
+  border: 1px solid #cfd5e4;
+  border-radius: var(--radius-sm);
+  color: #3345c5;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:disabled { color: #9299a5; cursor: not-allowed; }
+}

@@ -1,0 +1,41 @@
+.section h2 { margin: 0 0 18px; font-size: 22px; }
+
+.emptyState {
+  margin-bottom: 18px;
+  padding: 18px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-muted);
+  background: var(--color-surface);
+}
+
+.source {
+  margin-bottom: 18px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: 0 6px 20px #1d284008;
+}
+
+.sourceTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #edf0f5;
+
+  h3 { margin: 0; font-size: 18px; }
+  span { color: #8a93a1; font-size: 13px; }
+}
+
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; text-align: left; }
+.table th, .table td { padding: 14px 20px; border-bottom: 1px solid #f0f2f6; }
+.table th { color: #7b8494; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.table tr:last-child td { border-bottom: 0; }
+.amount { font-weight: 700; }
+.currency { padding: 4px 7px; border-radius: 5px; color: var(--color-primary); background: #eef0ff; font-size: 12px; font-weight: 700; }
+.excluded { color: #9299a5; background: #fafbfc; }
+
+@media (max-width: 620px) { .table th, .table td { padding: 12px 14px; } }

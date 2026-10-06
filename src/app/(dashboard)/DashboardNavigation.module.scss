@@ -1,0 +1,24 @@
+.navigation {
+  display: flex;
+  gap: 6px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 24px 0;
+}
+
+.link {
+  padding: 8px 11px;
+  border-radius: var(--radius-sm);
+  color: #596579;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.active {
+  color: #3345c5;
+  background: #e9ebff;
+}
+
+@media (max-width: 620px) {
+  .navigation { padding: 14px 15px 0; }
+}

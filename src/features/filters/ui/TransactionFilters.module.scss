@@ -1,0 +1,16 @@
+.filters {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.field { display: grid; gap: 5px; }
+.label { color: #596579; font-size: 12px; font-weight: 700; }
+.select { min-width: 125px; padding: 8px 10px; border: 1px solid #cbd2df; border-radius: 7px; background: #fff; color: var(--color-text); }
+.resetButton { padding: 10px 14px; border: 1px solid #cfd5e4; border-radius: var(--radius-sm); color: #3345c5; background: #fff; font-weight: 700; cursor: pointer; }

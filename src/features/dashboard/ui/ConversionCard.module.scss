@@ -1,0 +1,32 @@
+.conversion { margin: -24px 0 42px; }
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px;
+  border: 1px solid #cfd5ff;
+  border-radius: var(--radius-md);
+  background: linear-gradient(120deg, #f4f5ff, #fff);
+
+  strong { display: block; margin: 5px 0; font-size: 30px; }
+  p { margin: 0; color: var(--color-muted); font-size: 13px; }
+}
+
+.eyebrow { display: block; color: var(--color-primary); font-size: 13px; font-weight: 700; }
+
+.rateStatus {
+  padding: 14px 16px;
+  border-radius: 10px;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  font-size: 13px;
+}
+
+.error { color: #a63232; background: #ffeded; }
+
+.details summary { color: var(--color-primary); cursor: pointer; font-weight: 700; white-space: nowrap; }
+.ratesList { margin: 10px 0 0; padding-left: 20px; color: #667085; font-size: 13px; }
+
+@media (max-width: 620px) { .card { align-items: flex-start; flex-direction: column; } }

@@ -1,0 +1,10 @@
+.container { max-width: 650px; margin: 0 auto; padding: 52px 24px 70px; }
+.container h1 { margin: 0 0 8px; font-size: clamp(32px, 5vw, 52px); letter-spacing: -.05em; }
+.description { margin-bottom: 28px; color: var(--color-muted); }
+.form { display: grid; gap: 10px; padding: 22px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.label { font-weight: 700; }
+.select { width: min(100%, 260px); padding: 10px 12px; border: 1px solid #cbd2df; border-radius: var(--radius-sm); background: #fff; color: var(--color-text); }
+.button { justify-self: start; margin-top: 8px; padding: 12px 18px; border: 0; border-radius: 10px; color: #fff; background: var(--color-primary); box-shadow: 0 8px 18px #5364db33; font-weight: 700; cursor: pointer; }
+.success { margin: 0; color: #16734a; font-size: 14px; }
+
+@media (max-width: 620px) { .container { padding: 30px 15px; } }
